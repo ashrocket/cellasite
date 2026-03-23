@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="CELLA — Creative Direction" activePage="CREATIVE DIR">
+  <section class="page-content">
+    <div class="portfolio-grid">
+      <p class="placeholder">Creative direction portfolio coming soon.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style lang="scss">
+  .page-content {
+    padding-top: var(--nav-height);
+    min-height: 100vh;
+  }
+
+  .portfolio-grid {
+    padding: 2rem;
+  }
+
+  .placeholder {
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    opacity: 0.5;
+    text-align: center;
+    padding-top: 40vh;
+  }
+</style>

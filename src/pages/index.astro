@@ -1,17 +1,130 @@
 ---
-
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="CELLA — Graphic Designer & Creative Strategist">
+  <section class="hero">
+    <canvas id="portrait-canvas"></canvas>
+    <div class="hero-text">
+      <p>WELCOME TO MY WEBSITE.</p>
+      <p>SCROLL ON IF YOU'D LIKE TO GET</p>
+      <p>ACQUAINTED</p>
+    </div>
+  </section>
+
+  <section class="bio">
+    <div class="bio-left">
+      <p class="bio-tagline">WHATEVER YOU CAN IMAGINE,<br>I BRING TO LIFE.</p>
+
+      <ul class="skills-list">
+        <li>CREATIVE DIRECTION,</li>
+        <li>ART DIRECTION,</li>
+        <li>MUSIC VIDEOS,</li>
+        <li>MOTION GRAPHICS,</li>
+        <li>CAMPAIGN DESIGN,</li>
+        <li>POSTERS,</li>
+        <li>BRANDING,</li>
+        <li>CUSTOM TYPOGRAPHY</li>
+      </ul>
+
+      <p class="bio-coda">IF I DON'T KNOW HOW TO DO IT,<br>GIVE ME A WEEK. I'LL LEARN.</p>
+    </div>
+
+    <div class="bio-right">
+      <div class="contact-links">
+        <p class="contact-heading">GET IN TOUCH</p>
+        <a href="mailto:hello@cella.design">EMAIL →</a>
+        <a href="#">INSTAGRAM →</a>
+        <a href="#">VIMEO →</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style lang="scss">
+  .hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  #portrait-canvas {
+    width: 400px;
+    height: 500px;
+  }
+
+  .hero-text {
+    position: absolute;
+    bottom: 4rem;
+    left: 2rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: var(--color-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .bio {
+    min-height: 100vh;
+    display: flex;
+    padding: 6rem 2rem 4rem;
+    gap: 4rem;
+  }
+
+  .bio-left {
+    flex: 1;
+    max-width: 500px;
+  }
+
+  .bio-tagline {
+    font-size: 0.85rem;
+    line-height: 1.8;
+    letter-spacing: 0.05em;
+    margin-bottom: 2rem;
+  }
+
+  .skills-list {
+    list-style: none;
+    font-size: 0.85rem;
+    line-height: 2;
+    letter-spacing: 0.05em;
+    margin-bottom: 2rem;
+  }
+
+  .bio-coda {
+    font-size: 0.85rem;
+    line-height: 1.8;
+    letter-spacing: 0.05em;
+    font-style: italic;
+    opacity: 0.6;
+  }
+
+  .bio-right {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .contact-links {
+    font-size: 0.75rem;
+    line-height: 2.5;
+    letter-spacing: 0.05em;
+
+    a {
+      display: block;
+      transition: opacity 0.2s;
+
+      &:hover {
+        opacity: 0.6;
+      }
+    }
+  }
+
+  .contact-heading {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+</style>
