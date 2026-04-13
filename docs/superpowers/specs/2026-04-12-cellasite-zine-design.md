@@ -86,7 +86,8 @@ At 768px there's 34px clearance on the right — tight but safe. Below ~720px, A
 - **Easter egg:** `DeviceMotionEvent` shake (threshold `acceleration > 15 m/s²` sustained 200ms) triggers nav overlay with GSAP tumble-in physics (buttons "fall" into place with bounce easing). iOS 13+ requires `DeviceMotionEvent.requestPermission()`. Graceful degradation if denied.
 
 ### Scroll Model
-Each page has `<main class="content-scroll">` that scrolls independently beneath pinned nav. Matches celladome.com's `content-scroll-wrapper` pattern. GSAP ScrollTrigger targets this inner container, not `document`.
+
+`<main class="content-scroll">` on every page scrolls independently beneath the pinned nav (matches celladome.com's `content-scroll-wrapper`). GSAP ScrollTrigger and Lenis both target this inner container, not `document`.
 
 ### View Transitions (CSS, zero JS) with Progressive Fallback
 
@@ -138,38 +139,33 @@ For the logo's off-screen bleed (`top: -192px`, `margin-left: -573.5px`), browse
 
 ## Section 2: Animation Framework
 
-Three layers, lightest to heaviest. Each layer has one purpose and runs independently.
+Three layers, lightest to heaviest. Each has one purpose and runs independently.
 
-### Layer 1 — View Transitions (0 KB JS, native CSS)
-Page-to-page navigation morphing. Specified in Section 1.
+**Layer 1 — View Transitions.** Page-to-page navigation morphing. Spec in Section 1.
 
-### Layer 2 — Scroll-Driven (GSAP + CSS scroll-timeline)
-Within-page choreography:
+**Layer 2 — Scroll-Driven (GSAP + CSS `scroll-timeline`).** Within-page choreography driven by scroll position. Uses native CSS `scroll-timeline` where supported, GSAP ScrollTrigger fallback.
 
 - **Home:** Particle portrait → bio → skills → project carousel (already built in commit `346e25a`).
-- **Projects:** Parallax images, pull-quote slides, layered depth on scroll.
-- **Graphics:** Masonry stagger-in on viewport enter, rotating cards.
-- **About:** Resume timeline draws on scroll, bio reveal, skills stagger.
+- **Projects:** Parallax images, pull-quote slides.
+- **Graphics:** Masonry grid with entry animations on viewport enter.
+- **About:** Resume timeline and bio reveal on scroll.
 
-Native CSS `scroll-timeline` where supported; GSAP ScrollTrigger fallback. Lenis smooth scroll scoped to inner `content-scroll-wrapper`.
-
-### Layer 3 — Interaction Responses (user-triggered)
+**Layer 3 — Interaction Responses.** User-triggered effects.
 
 | Interaction | Behavior |
 |---|---|
-| Nav hover | 2° rotate wobble (GSAP `quickTo`) |
-| Grid hover | Scale + drop shadow on project/gallery cards |
+| Nav hover | 2° rotate wobble |
+| Grid hover | Scale + drop shadow on cards |
 | Lightbox | Click image → morph to fullscreen via View Transitions |
-| Audio | Web Audio API, opt-in per project, fade in/out |
+| Project audio | Web Audio API, opt-in per project, sticky mute/unmute across pages |
 | Cursor | Hand-drawn `cursor: url()` from Portfolio.zip assets |
-| Audio toggle | Sticky mute/unmute indicator, persists across pages |
 
 ### Performance Rules
-- **`transform` + `opacity` only** for GSAP (GPU-accelerated, no layout thrash).
-- **`prefers-reduced-motion`** disables Layer 2 + Layer 3; Layer 1 native fade remains.
-- **Lazy-init** ScrollTriggers per page, not global.
-- **Audio opt-in** — no autoplay; user must click unmute.
-- **Lenis scoped** to inner wrapper, not full document.
+
+- Animate `transform` and `opacity` only (GPU-accelerated, no layout thrash).
+- `prefers-reduced-motion` disables Layer 2 and Layer 3; Layer 1 native fade remains.
+- ScrollTriggers lazy-init per page, not global.
+- Audio opt-in only — no autoplay.
 
 ---
 
@@ -296,9 +292,7 @@ Every PR triggers these, all must pass before merge is enabled:
 
 Runs in GitHub Actions on every PR. Cloudflare Pages build runs separately; both must succeed for merge.
 
-**Screenshot baseline strategy:** First deploy to `main` establishes baseline. Subsequent PRs diff against it. Small threshold (2% pixel diff) to avoid font-rendering noise. When Cella intentionally redesigns a page, she includes "update-baseline" in the PR title and the action updates the baseline instead of comparing against it.
-
-**Pre-commit hook (optional, for local dev):** runs type check + format to catch issues before push. Documented in README; not enforced by CI.
+**Screenshot baseline:** First deploy to `main` establishes baseline. Subsequent PRs diff against it with a 2% pixel-diff threshold (absorbs font-rendering noise). When Cella intentionally redesigns a page, she includes `update-baseline` in the PR title and the action refreshes the baseline instead of comparing.
 
 ### Fallback
 
@@ -318,18 +312,13 @@ Single breakpoint at **768px**. Minimal complexity.
 Full zine experience: inline nav row with irregular y-offsets, multi-column layouts, full animations, Web Audio, custom cursor.
 
 ### Mobile (<768px)
-- Single-column reflow. No horizontal scroll. Stacked grids.
-- Images full-width; 400w srcset variant served, lazy-loaded.
-- Typography scales 10-15% down, tighter line-height. Georgia italic wordmarks preserved.
-- Layer 2 animations reduced; Layer 3 disabled (no hover on touch). Layer 1 (View Transitions) intact.
-- Nav overlay via logo tap or device shake (see Section 1).
 
-### What Mobile Does NOT Do
-- No custom cursor (touch input).
-- No hover wobble / hover scale.
-- No auto-playing project audio (preserve data).
-- No parallax depth effects (perf + motion sickness).
-- No multi-column Readymag pixel-fidelity — reflow wins over pixel-match.
+- Single-column reflow. No horizontal scroll.
+- Images full-width; 400w srcset variant served, lazy-loaded.
+- Typography scales 10-15% down; Georgia italic wordmarks preserved.
+- Layer 1 View Transitions intact. Layer 2 parallax reduced. Layer 3 disabled entirely (no hover on touch, no custom cursor, no auto-audio).
+- Nav overlay via logo tap or device shake (see Section 1).
+- Reflow wins over pixel-match — no attempt at multi-column Readymag fidelity on small screens.
 
 ---
 
@@ -346,34 +335,20 @@ Full zine experience: inline nav row with irregular y-offsets, multi-column layo
 | Node version | 20.x |
 | Wrangler | `.wrangler/` directory already scaffolded |
 
-### PR Preview Loop
+### Preview & Deploy
 
-1. Copilot opens PR from an Issue → Cloudflare Pages auto-builds.
-2. Preview URL posted as PR comment (e.g. `https://<feature>.celladome.pages.dev`).
-3. Cella opens preview on phone, reviews, merges or opens follow-up.
-4. On merge to `main` → production deploy to `celladome.com`.
+Every PR gets a preview URL from Cloudflare Pages (posted as PR comment, e.g. `https://<feature>.celladome.pages.dev`). Cella reviews on phone, merges or iterates. Merge to `main` auto-deploys to `celladome.com`.
 
 ### Domain & DNS Cutover
 
-**Before cutover:**
-- `celladome.com` points to Readymag (live).
-- `celladome.pages.dev` serves new Astro site.
-- Cella tests on real devices under preview URLs.
-
-**Cutover day:**
-- Point `celladome.com` DNS → Cloudflare Pages.
-- Cloudflare handles SSL automatically.
-- `celladome.pages.dev` still works as staging alias.
-- Readymag can be archived or kept as backup.
+- **Pre-cutover:** `celladome.com` stays on Readymag. New site lives at `celladome.pages.dev`. Cella tests on real devices via preview URLs.
+- **Cutover:** Point `celladome.com` DNS → Cloudflare Pages. SSL handled automatically. `celladome.pages.dev` remains as staging alias. Readymag archived or retained as backup.
 
 ### Repo & CI
 
-- **Repo:** `github.com/ashrocket/cellasite` (already set up).
-- **Cloudflare project:** linked to repo, auto-deploys on `main` push + PR previews.
-- **Secrets:** none required initially (static SSG). Add later if analytics/forms are added.
-- **GitHub Actions:** runs the Automated Code Review Gate on every PR (type check, lint, content pairing, image verification, visual smoke test). See Section 3.
-- **Build-time image verification** — see Section 3. Failed URL checks block the build, which blocks PR merge on Cloudflare.
-- **Content pairing check** — see Section 3. Ensures `.yaml` metadata and `.astro` page stay in sync.
+- Repo: `github.com/ashrocket/cellasite`. Cloudflare project linked, auto-deploys on `main` + PR previews.
+- No secrets required (static SSG). Add later if analytics/forms are introduced.
+- GitHub Actions runs the Automated Code Review Gate (Section 3) on every PR: all checks must pass before merge is enabled.
 
 ### Observability
 
