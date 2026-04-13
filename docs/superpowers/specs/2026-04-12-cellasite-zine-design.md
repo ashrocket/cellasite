@@ -192,6 +192,19 @@ Copilot's instruction manual:
 4. Writes Astro `<Image>` references with srcset.
 5. Commits optimized assets alongside code changes.
 
+### Build-Time Image Verification
+
+**Purpose:** Catch silent image failures (404s, CDN hiccups, typo'd paths) before they reach production.
+
+A build-time check runs before `astro build` completes:
+
+1. Walk `dist/` for every `<img>` `src` and `srcset` entry (and CSS `url()` references in built stylesheets).
+2. `HEAD` request each URL (parallelized, with concurrency cap).
+3. Any non-200 response fails the build with a list of broken URLs and the file each was referenced from.
+4. Runs in both local `npm run build` and Cloudflare Pages build — failed build blocks PR merge.
+
+Implementation: small Node script invoked via `"build": "astro build && node scripts/verify-images.mjs"`. Local image paths (served from `public/`) are also checked to catch missing asset commits.
+
 ### Fallback
 
 Power-user path: direct code edits via GitHub web editor or local dev. Always available for hotfixes and fine-tuning Copilot's work.
@@ -264,6 +277,7 @@ Full zine experience: inline nav row with irregular y-offsets, multi-column layo
 - **Cloudflare project:** linked to repo, auto-deploys on `main` push + PR previews.
 - **Secrets:** none required initially (static SSG). Add later if analytics/forms are added.
 - **GitHub Actions:** minimal — Cloudflare handles builds. Actions only for lint and type-check on PR.
+- **Build-time image verification** — see Section 3. Failed URL checks block the build, which blocks PR merge on Cloudflare.
 
 ### Observability
 
