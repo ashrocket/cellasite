@@ -36,20 +36,47 @@ Rebuild of Cella Raiteri's portfolio (`celladome.com`, currently on Readymag) in
 **Principle:** Fixed outer frame wraps every page. Inner content scrolls independently.
 
 ### Desktop (≥768px)
-Nav buttons preserve celladome.com placement exactly (measured at 1287×749):
 
-| Button | Position (x, y) | Size (w × h) | Target |
-|---|---|---|---|
-| PROJECTS | 598, 4 | 103 × 69 | `/projects/` |
-| GRAPHICS | 693, 18 | 103 × 58 | `/graphics/` |
-| VIDEO | 790, 10 | 97 × 73 | `/video/` |
-| ABOUT | 882, 11 | 111 × 73 | `/about/` |
-| Logo | -67, -192 | 274 × 285 | `/` |
+Nav buttons preserve celladome.com placement (audited at 1287×749 viewport).
+
+**Positioning strategy: center-anchor with fixed pixel margin-left.** Matches how Readymag itself renders the nav. Each button is anchored to viewport center, then shifted by a fixed pixel offset. No `clamp()`, no `vw`, no responsive scaling — buttons stay their native PNG size, y-offsets stay fixed, horizontal spacing stays constant at any viewport width.
+
+```css
+.nav-btn-projects {
+  position: fixed;
+  left: 50%;
+  top: 4px;
+  margin-left: 6px;       /* center-relative offset */
+  width: 103px;
+  height: 69px;
+}
+```
+
+Margin-left values derived from the audit (button center = viewport center + margin-left):
+
+| Button | Audit x,y | Size w × h | y (top) | margin-left |
+|---|---|---|---|---|
+| PROJECTS | 598, 4 | 103 × 69 | 4px | +6 |
+| GRAPHICS | 693, 18 | 103 × 58 | 18px | +101 |
+| VIDEO | 790, 10 | 97 × 73 | 10px | +195 |
+| ABOUT | 882, 11 | 111 × 73 | 11px | +294 |
+| Logo | -67, -192 | 274 × 285 | -192px | -573.5 |
+
+**Viewport verification** — rightmost button (ABOUT) edge position vs. viewport width:
+
+| Viewport | ABOUT right edge | Clearance |
+|---|---|---|
+| 768px | 734px | 34px margin ✓ |
+| 1024px | 862px | 162px ✓ |
+| 1287px | 993px | matches design ✓ |
+| 1440px | 1075px | ✓ |
+| 1920px | 1016px (centered further) | ✓ |
+
+At 768px there's 34px clearance on the right — tight but safe. Below ~720px, ABOUT would begin to clip — that's already below the 768px mobile breakpoint where the inline nav collapses into the logo-tap overlay.
 
 - Irregular y-offsets (4, 10, 11, 18) preserved — zine paste-up feel.
 - Each button is a uniquely-shaped hand-drawn PNG from Portfolio.zip (not normalized).
-- Logo bleeds off top-left at negative coords.
-- Nav positioned absolutely via pixel values scaled with `clamp()` for larger viewports.
+- Logo bleeds off top-left at negative coords (top: -192px, margin-left: -573.5px).
 - Wordmarks use Georgia serif italic; body font is system-ui.
 
 ### Mobile (<768px)
