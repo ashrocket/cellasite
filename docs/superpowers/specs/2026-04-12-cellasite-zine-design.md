@@ -266,6 +266,40 @@ A build-time check runs before `astro build` completes:
 
 Implementation: small Node script invoked via `"build": "astro build && node scripts/verify-images.mjs"`. Local image paths (served from `public/`) are also checked to catch missing asset commits.
 
+### Content Pairing Check (metadata ↔ page)
+
+**Purpose:** The two-file content model (`.yaml` metadata + `.astro` page) can silently drift if Copilot updates one without the other. A build-time pairing check enforces atomic updates.
+
+1. For every `src/pages/projects/<slug>.astro`, verify that `src/content/projects/<slug>.yaml` exists.
+2. For every `src/content/projects/<slug>.yaml`, verify that `src/pages/projects/<slug>.astro` exists (or the index page is intentionally handling it — a collection-to-page registry lists allowed exceptions).
+3. Validate each `.yaml` against the Content Collection's Zod schema — missing required fields, wrong types, unknown keys all fail the build.
+4. Parse `.astro` files for `getEntry('projects', '<slug>')` calls and verify the referenced slug exists in the collection.
+
+Same check applies to `graphics` and `videos` collections. Runs as part of `scripts/verify-content.mjs` during build. Failure blocks merge.
+
+### Automated Code Review Gate
+
+**Purpose:** Cella reviews the visual preview, not the code. A layered set of automated checks substitutes for a human code reviewer.
+
+Every PR triggers these, all must pass before merge is enabled:
+
+| Check | Tool | Catches |
+|---|---|---|
+| Type check | `astro check` (TypeScript + Astro types) | Null props, wrong component args, missing imports, untyped collection access |
+| Content schema | Zod schemas in `src/content/config.ts` | `.yaml` shape violations, required fields missing, invalid values |
+| Lint | ESLint with Astro plugin + `eslint-plugin-jsx-a11y` | Common bugs, accessibility regressions (alt text, focus order, aria) |
+| Format | Prettier (check mode) | Style drift |
+| Content pairing | `scripts/verify-content.mjs` | Metadata/page drift (see above) |
+| Image verification | `scripts/verify-images.mjs` | 404s, missing assets, CDN failures |
+| Build | `astro build` | Anything that crashes the build pipeline |
+| Visual smoke test | Playwright screenshot of 4 key pages (home, projects, graphics, about) compared against previous `main` deploy | Unexpected layout shifts, missing sections, broken rendering |
+
+Runs in GitHub Actions on every PR. Cloudflare Pages build runs separately; both must succeed for merge.
+
+**Screenshot baseline strategy:** First deploy to `main` establishes baseline. Subsequent PRs diff against it. Small threshold (2% pixel diff) to avoid font-rendering noise. When Cella intentionally redesigns a page, she includes "update-baseline" in the PR title and the action updates the baseline instead of comparing against it.
+
+**Pre-commit hook (optional, for local dev):** runs type check + format to catch issues before push. Documented in README; not enforced by CI.
+
 ### Fallback
 
 Power-user path: direct code edits via GitHub web editor or local dev. Always available for hotfixes and fine-tuning Copilot's work.
@@ -337,8 +371,9 @@ Full zine experience: inline nav row with irregular y-offsets, multi-column layo
 - **Repo:** `github.com/ashrocket/cellasite` (already set up).
 - **Cloudflare project:** linked to repo, auto-deploys on `main` push + PR previews.
 - **Secrets:** none required initially (static SSG). Add later if analytics/forms are added.
-- **GitHub Actions:** minimal — Cloudflare handles builds. Actions only for lint and type-check on PR.
+- **GitHub Actions:** runs the Automated Code Review Gate on every PR (type check, lint, content pairing, image verification, visual smoke test). See Section 3.
 - **Build-time image verification** — see Section 3. Failed URL checks block the build, which blocks PR merge on Cloudflare.
+- **Content pairing check** — see Section 3. Ensures `.yaml` metadata and `.astro` page stay in sync.
 
 ### Observability
 
