@@ -88,9 +88,13 @@ At 768px there's 34px clearance on the right — tight but safe. Below ~720px, A
 ### Scroll Model
 Each page has `<main class="content-scroll">` that scrolls independently beneath pinned nav. Matches celladome.com's `content-scroll-wrapper` pattern. GSAP ScrollTrigger targets this inner container, not `document`.
 
-### View Transitions (CSS, zero JS)
+### View Transitions (CSS, zero JS) with Progressive Fallback
+
+**Primary strategy:** Native cross-document View Transitions.
+
 ```css
 @view-transition { navigation: auto; }
+
 .nav-logo         { view-transition-name: logo; }
 .nav-btn-projects { view-transition-name: nav-projects; }
 .nav-btn-graphics { view-transition-name: nav-graphics; }
@@ -98,7 +102,37 @@ Each page has `<main class="content-scroll">` that scrolls independently beneath
 .nav-btn-about    { view-transition-name: nav-about; }
 ```
 
-Cross-document View Transitions API (Astro native). Logo persists, buttons morph independently, content cross-fades with directional slide (left/right based on nav order).
+Each button has a **unique** transition name — PROJECTS only morphs with PROJECTS on the next page. No cross-size morphing between differently-shaped PNGs. The identity transition (same element, same position, same size) is effectively visually invisible — which is what we want for persistent nav elements.
+
+**Browser support (as of 2026-04):**
+
+| Browser | Cross-document View Transitions | Behavior |
+|---|---|---|
+| Chrome/Edge 126+ | ✓ supported | Full morphing experience |
+| Safari 18.2+ | ✓ supported | Full morphing experience |
+| Firefox | Not yet | Graceful fallback (see below) |
+| Safari <18.2 | Not supported | Graceful fallback |
+
+**Fallback — no JS polyfill, no added weight.** Browsers without support skip the CSS at-rules entirely. Navigation works normally — pages load with a brief default transition. The hand-drawn nav and visual design still look identical; only the morph animation is absent. This preserves Layer 1's "0 KB, native CSS" contract.
+
+```css
+@supports not (view-transition-name: logo) {
+  /* Any view-transition-specific visual cues go here, e.g.
+     fallback hover animation to mimic persistence */
+}
+```
+
+### Capture-Region Safeguards
+
+For the logo's off-screen bleed (`top: -192px`, `margin-left: -573.5px`), browser behavior when capturing elements partially outside the viewport is implementation-defined. Mitigations:
+
+1. **Deterministic positioning.** Logo position is identical on every page (same CSS, same computed values). Even if capture behavior differs across browsers, start and end frames on a given browser are identical → transition is a visual no-op. Safe regardless of how any one browser handles the bleed.
+
+2. **`contain: paint` on the nav container** — tells the browser the paint region is bounded, reducing surprises during snapshot capture.
+
+3. **Opt-out for nested elements** — any decorative children that shouldn't participate get `view-transition-name: none` to prevent conflicts.
+
+4. **Manual verification** — QA pass at cutover time on Chrome, Edge, Safari 18.2+, and mobile Safari. Firefox verified to fall back gracefully (no visual glitch, just no morph).
 
 ---
 
