@@ -1,29 +1,106 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { resolveImage } from '~/lib/images';
+
+const videos = (await getCollection('videos')).sort((a, b) => a.data.order - b.data.order);
 ---
 
 <BaseLayout title="Video — CELLA" activePage="video">
   <section class="page-hero">
     <h1>Video</h1>
-    <p class="placeholder">Content populated in Plan 2 (CMS Infrastructure).</p>
   </section>
+
+  <ul class="video-list">
+    {
+      videos.map((v) => {
+        const thumb = resolveImage(v.data.slug, v.data.thumbnail.name, {
+          alt: v.data.thumbnail.alt,
+          sizes: '(max-width: 767px) 100vw, 66vw',
+        });
+        const href = v.data.embedUrl ?? v.data.videoFile!;
+        return (
+          <li class="video-card">
+            <a href={href} rel="noopener">
+              <img
+                src={thumb.src}
+                srcset={thumb.srcset}
+                sizes={thumb.sizes}
+                width={thumb.width}
+                height={thumb.height}
+                alt={thumb.alt}
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+            <div class="meta">
+              <h2>{v.data.title}</h2>
+              <p class="role">
+                {v.data.role} · {v.data.year}
+              </p>
+              {v.data.artist && <p class="artist">{v.data.artist}</p>}
+              {v.data.description && <p class="description">{v.data.description}</p>}
+            </div>
+          </li>
+        );
+      })
+    }
+  </ul>
 </BaseLayout>
 
 <style lang="scss">
   .page-hero {
-    padding: 12rem 2rem 4rem;
+    padding: 12rem 2rem 2rem;
     max-width: 900px;
 
     h1 {
       font-family: Georgia, serif;
       font-style: italic;
       font-size: clamp(3rem, 8vw, 5rem);
-      margin: 0 0 2rem;
+      margin: 0;
+    }
+  }
+
+  .video-list {
+    list-style: none;
+    padding: 2rem 2rem 6rem;
+    display: grid;
+    gap: 4rem;
+    max-width: 1100px;
+  }
+
+  .video-card {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+
+    @media (max-width: 767px) {
+      grid-template-columns: 1fr;
     }
 
-    .placeholder {
-      color: var(--color-muted, #888);
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    h2 {
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-size: 1.5rem;
+      margin: 0 0 0.5rem;
+    }
+
+    .role,
+    .artist {
+      font-size: 0.85rem;
+      color: var(--color-muted, #666);
+      margin: 0 0 0.25rem;
+    }
+
+    .description {
       font-size: 0.9rem;
+      margin: 0.5rem 0 0;
     }
   }
 </style>

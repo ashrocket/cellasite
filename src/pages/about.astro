@@ -1,29 +1,118 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro';
+import { getEntry } from 'astro:content';
+import { resolveImage, hasImage } from '~/lib/images';
+
+const about = await getEntry('about', 'about');
+if (!about) throw new Error('src/content/about.json is required');
+const { bio, contact, software, opennessStatement, portrait } = about.data;
+
+const portraitImg =
+  portrait && hasImage('about', portrait.name)
+    ? resolveImage('about', portrait.name, {
+        alt: portrait.alt,
+        sizes: '(max-width: 767px) 100vw, 40vw',
+      })
+    : null;
 ---
 
 <BaseLayout title="About — CELLA" activePage="about">
-  <section class="page-hero">
-    <h1>About</h1>
-    <p class="placeholder">Content populated in Plan 2 (CMS Infrastructure).</p>
+  <section class="about">
+    <div class="about-col">
+      <h1>About</h1>
+      {bio.map((p) => <p class="bio-para">{p}</p>)}
+
+      <h2>Contact</h2>
+      <ul class="contact">
+        <li><a href={`mailto:${contact.email}`}>{contact.email}</a></li>
+        <li><a href={contact.instagramUrl} rel="noopener">@{contact.instagram}</a></li>
+      </ul>
+
+      <h2>Software</h2>
+      <p class="software-lead">Proficient:</p>
+      <ul class="software">{software.proficient.map((s) => <li>{s}</li>)}</ul>
+      <p class="software-lead">Learning:</p>
+      <ul class="software">{software.learning.map((s) => <li>{s}</li>)}</ul>
+
+      <p class="openness">{opennessStatement}</p>
+    </div>
+
+    {
+      portraitImg && (
+        <div class="about-portrait">
+          <img
+            src={portraitImg.src}
+            srcset={portraitImg.srcset}
+            sizes={portraitImg.sizes}
+            width={portraitImg.width}
+            height={portraitImg.height}
+            alt={portraitImg.alt}
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      )
+    }
   </section>
 </BaseLayout>
 
 <style lang="scss">
-  .page-hero {
-    padding: 12rem 2rem 4rem;
-    max-width: 900px;
+  .about {
+    padding: 12rem 2rem 6rem;
+    max-width: 1100px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 4rem;
 
-    h1 {
-      font-family: Georgia, serif;
-      font-style: italic;
-      font-size: clamp(3rem, 8vw, 5rem);
-      margin: 0 0 2rem;
+    @media (max-width: 767px) {
+      grid-template-columns: 1fr;
+      gap: 2rem;
     }
+  }
 
-    .placeholder {
-      color: var(--color-muted, #888);
-      font-size: 0.9rem;
-    }
+  h1 {
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: clamp(3rem, 8vw, 5rem);
+    margin: 0 0 2rem;
+  }
+
+  h2 {
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 1.25rem;
+    margin: 2.5rem 0 0.75rem;
+  }
+
+  .bio-para {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin: 0 0 1rem;
+  }
+
+  .contact,
+  .software {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0.5rem;
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+
+  .software-lead {
+    font-size: 0.9rem;
+    margin: 0.5rem 0 0.25rem;
+    font-weight: bold;
+  }
+
+  .openness {
+    margin-top: 2.5rem;
+    font-style: italic;
+    color: var(--color-muted, #666);
+  }
+
+  .about-portrait img {
+    width: 100%;
+    height: auto;
   }
 </style>

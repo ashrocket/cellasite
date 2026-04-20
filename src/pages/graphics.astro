@@ -1,29 +1,89 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { resolveImage } from '~/lib/images';
+
+const graphics = (await getCollection('graphics')).sort((a, b) => a.data.order - b.data.order);
 ---
 
 <BaseLayout title="Graphics — CELLA" activePage="graphics">
   <section class="page-hero">
     <h1>Graphics</h1>
-    <p class="placeholder">Content populated in Plan 2 (CMS Infrastructure).</p>
   </section>
+
+  <ul class="graphics-grid">
+    {
+      graphics.map((g) => {
+        const img = resolveImage(g.data.slug, g.data.image.name, {
+          alt: g.data.image.alt,
+          sizes: '(max-width: 767px) 100vw, (max-width: 1279px) 50vw, 33vw',
+        });
+        return (
+          <li class="graphic-card">
+            <figure>
+              <img
+                src={img.src}
+                srcset={img.srcset}
+                sizes={img.sizes}
+                width={img.width}
+                height={img.height}
+                alt={img.alt}
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption>
+                <strong>{g.data.title}</strong>
+                {g.data.year && <span class="year"> · {g.data.year}</span>}
+                {g.data.artist && <span class="artist"> · {g.data.artist}</span>}
+              </figcaption>
+            </figure>
+          </li>
+        );
+      })
+    }
+  </ul>
 </BaseLayout>
 
 <style lang="scss">
   .page-hero {
-    padding: 12rem 2rem 4rem;
+    padding: 12rem 2rem 2rem;
     max-width: 900px;
 
     h1 {
       font-family: Georgia, serif;
       font-style: italic;
       font-size: clamp(3rem, 8vw, 5rem);
-      margin: 0 0 2rem;
+      margin: 0;
+    }
+  }
+
+  .graphics-grid {
+    list-style: none;
+    padding: 2rem 2rem 6rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 2rem;
+  }
+
+  .graphic-card {
+    figure {
+      margin: 0;
+    }
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
     }
 
-    .placeholder {
-      color: var(--color-muted, #888);
-      font-size: 0.9rem;
+    figcaption {
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--color-muted, #666);
+
+      strong {
+        color: var(--color-text, #1a1a1a);
+        font-weight: normal;
+      }
     }
   }
 </style>
