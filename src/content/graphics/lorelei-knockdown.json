@@ -1,0 +1,10 @@
+{
+  "title": "This Is Lorelei — Knockdown Center",
+  "slug": "lorelei-knockdown",
+  "category": "show-poster",
+  "artist": "This Is Lorelei",
+  "venue": "Knockdown Center",
+  "description": "Show poster for This Is Lorelei at Knockdown Center.",
+  "image": { "name": "thumb", "alt": "This Is Lorelei at Knockdown Center poster" },
+  "order": 30
+}

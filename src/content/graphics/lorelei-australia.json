@@ -1,0 +1,9 @@
+{
+  "title": "This Is Lorelei — Australia Tour",
+  "slug": "lorelei-australia",
+  "category": "tour-poster",
+  "artist": "This Is Lorelei",
+  "description": "Tour poster for This Is Lorelei's Australia run.",
+  "image": { "name": "thumb", "alt": "This Is Lorelei Australia tour poster" },
+  "order": 10
+}

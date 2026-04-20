@@ -1,0 +1,8 @@
+{
+  "title": "MTA — Waveform",
+  "slug": "mta-waveform",
+  "category": "other",
+  "description": "MTA Waveform design.",
+  "image": { "name": "thumb", "alt": "MTA Waveform design" },
+  "order": 110
+}

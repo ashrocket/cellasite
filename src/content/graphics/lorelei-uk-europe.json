@@ -1,0 +1,9 @@
+{
+  "title": "This Is Lorelei — UK / Europe Tour",
+  "slug": "lorelei-uk-europe",
+  "category": "tour-poster",
+  "artist": "This Is Lorelei",
+  "description": "Tour poster for This Is Lorelei's UK and Europe run.",
+  "image": { "name": "thumb", "alt": "This Is Lorelei UK/Europe tour poster" },
+  "order": 20
+}

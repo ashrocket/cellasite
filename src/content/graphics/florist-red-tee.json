@@ -1,0 +1,9 @@
+{
+  "title": "Florist — Red Tee",
+  "slug": "florist-red-tee",
+  "category": "merch",
+  "artist": "Florist",
+  "description": "Merch tee design for Florist — red colorway.",
+  "image": { "name": "thumb", "alt": "Florist red tee merch" },
+  "order": 50
+}
