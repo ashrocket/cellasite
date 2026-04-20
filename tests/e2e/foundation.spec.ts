@@ -72,3 +72,59 @@ test.describe('foundation shell', () => {
     expect(logoViewName.trim()).toBe('logo');
   });
 });
+
+test.describe('CMS content renders', () => {
+  test('projects index renders three project cards', async ({ page }) => {
+    await page.goto('/projects');
+    await page.waitForLoadState('networkidle');
+    const cards = page.locator('.project-card');
+    await expect(cards).toHaveCount(3);
+    await expect(cards.getByText('Double Double Whammy')).toBeVisible();
+    await expect(cards.getByText('Halliday Carpender')).toBeVisible();
+    await expect(cards.getByText('Rose Bud Thorn')).toBeVisible();
+  });
+
+  test('graphics index renders 14 graphic cards', async ({ page }) => {
+    await page.goto('/graphics');
+    await page.waitForLoadState('networkidle');
+    await expect(page.locator('.graphic-card')).toHaveCount(14);
+  });
+
+  test('video index renders two videos', async ({ page }) => {
+    await page.goto('/video');
+    await page.waitForLoadState('networkidle');
+    await expect(page.locator('.video-card')).toHaveCount(2);
+    await expect(page.getByText("Tucson — Nara's Room")).toBeVisible();
+    await expect(page.getByText('Babehoven — WNYU Live')).toBeVisible();
+  });
+
+  test('about page renders bio + contact + openness', async ({ page }) => {
+    await page.goto('/about');
+    await page.waitForLoadState('networkidle');
+    await expect(page.locator('h1', { hasText: 'About' })).toBeVisible();
+    await expect(page.getByText('cellaraiteri@gmail.com')).toBeVisible();
+    await expect(page.getByText('thecelladome', { exact: false })).toBeVisible();
+    await expect(page.getByText('Currently open to', { exact: false })).toBeVisible();
+  });
+
+  test('double-double-whammy detail page renders sub-sections', async ({ page }) => {
+    await page.goto('/projects/double-double-whammy');
+    await page.waitForLoadState('networkidle');
+    await expect(page.locator('h1', { hasText: 'Double Double Whammy' })).toBeVisible();
+    await expect(page.locator('h2', { hasText: 'Graphics & Merch' })).toBeVisible();
+    await expect(page.locator('h2', { hasText: 'Press Sites' })).toBeVisible();
+    await expect(page.locator('h2', { hasText: 'Motion' })).toBeVisible();
+  });
+
+  test('halliday-carpender detail page renders', async ({ page }) => {
+    await page.goto('/projects/halliday-carpender');
+    await page.waitForLoadState('networkidle');
+    await expect(page.locator('h1', { hasText: 'Halliday Carpender' })).toBeVisible();
+  });
+
+  test('rose-bud-thorn detail page renders', async ({ page }) => {
+    await page.goto('/projects/rose-bud-thorn');
+    await page.waitForLoadState('networkidle');
+    await expect(page.locator('h1', { hasText: 'Rose Bud Thorn' })).toBeVisible();
+  });
+});
