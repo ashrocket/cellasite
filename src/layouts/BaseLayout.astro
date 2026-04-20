@@ -1,19 +1,16 @@
 ---
 import '../styles/global.scss';
+import '../styles/view-transitions.scss';
+import '../styles/nav.scss';
+import Nav from '../components/Nav.astro';
+import MobileNavOverlay from '../components/MobileNavOverlay.astro';
 
 interface Props {
   title?: string;
-  activePage?: string;
+  activePage?: 'home' | 'projects' | 'graphics' | 'video' | 'about';
 }
 
-const { title = 'CELLA', activePage = '' } = Astro.props;
-
-const navItems = [
-  { label: 'PROJECTS', href: '/projects' },
-  { label: 'GRAPHICS', href: '/graphics' },
-  { label: 'MOTION', href: '/motion' },
-  { label: 'CREATIVE DIR', href: '/creative-direction' },
-];
+const { title = 'CELLA', activePage = 'home' } = Astro.props;
 ---
 
 <!doctype html>
@@ -26,91 +23,19 @@ const navItems = [
     <title>{title}</title>
   </head>
   <body>
-    <header class="site-header">
-      <a href="/" class="logo">
-        <!-- Placeholder for hand-drawn CELLA logo SVG -->
-        <span class="logo-text">CELLA</span>
-      </a>
-      <nav class="main-nav">
-        {
-          navItems.map((item) => (
-            <a href={item.href} class:list={['nav-item', { active: activePage === item.label }]}>
-              <span class="nav-frame">
-                <span class="nav-label">{item.label}</span>
-              </span>
-            </a>
-          ))
-        }
-      </nav>
-    </header>
+    <Nav activeId={activePage} />
+    <MobileNavOverlay />
 
-    <main>
+    <main class="content-scroll">
       <slot />
     </main>
+
+    <script>
+      import { initNavOverlay } from '~/scripts/nav-overlay';
+      import { initLenis } from '~/scripts/lenis-init';
+
+      initNavOverlay();
+      initLenis();
+    </script>
   </body>
 </html>
-
-<style lang="scss">
-  .site-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    padding: 1.5rem 2rem;
-    pointer-events: none;
-
-    > * {
-      pointer-events: auto;
-    }
-  }
-
-  .logo {
-    display: block;
-  }
-
-  .logo-text {
-    font-family: var(--font-mono);
-    font-size: 2.5rem;
-    font-weight: bold;
-    letter-spacing: 0.05em;
-    opacity: 0.8;
-  }
-
-  .main-nav {
-    display: flex;
-    gap: 0.5rem;
-    align-items: flex-start;
-  }
-
-  .nav-item {
-    display: block;
-    transition: opacity 0.2s;
-
-    &:hover {
-      opacity: 0.7;
-    }
-  }
-
-  .nav-frame {
-    display: inline-block;
-    border: 1.5px solid var(--color-text);
-    border-radius: 4px;
-    padding: 0.5rem 1.25rem;
-    position: relative;
-  }
-
-  .nav-label {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .nav-item.active .nav-frame {
-    border-color: var(--color-accent);
-  }
-</style>

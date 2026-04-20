@@ -1,0 +1,20 @@
+---
+interface Props {
+  id: 'projects' | 'graphics' | 'video' | 'about';
+  label: string;
+  href: string;
+  isActive?: boolean;
+}
+
+const { id, label, href, isActive = false } = Astro.props;
+---
+
+<a
+  href={href}
+  class:list={['nav-btn', { 'nav-btn--active': isActive }]}
+  data-nav-id={id}
+  aria-label={label}
+  aria-current={isActive ? 'page' : undefined}
+>
+  <img src={`/assets/nav/${id}.png`} alt={label} />
+</a>

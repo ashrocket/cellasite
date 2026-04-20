@@ -1,0 +1,22 @@
+---
+import NavButton from './NavButton.astro';
+import { NAV_BUTTONS } from '~/scripts/nav-math';
+
+interface Props {
+  activeId?: 'projects' | 'graphics' | 'video' | 'about' | 'home';
+}
+
+const { activeId = 'home' } = Astro.props;
+---
+
+<nav class="site-nav" aria-label="Primary">
+  <a href="/" class="nav-logo" aria-label="CELLA — home">
+    <img src="/assets/logo/logo.png" alt="CELLA" />
+  </a>
+
+  {
+    NAV_BUTTONS.map((btn) => (
+      <NavButton id={btn.id} label={btn.label} href={btn.href} isActive={activeId === btn.id} />
+    ))
+  }
+</nav>
