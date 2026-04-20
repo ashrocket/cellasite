@@ -1,0 +1,100 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Gallery from '~/components/Gallery.astro';
+import PressQuotes from '~/components/PressQuotes.astro';
+import { getEntry } from 'astro:content';
+import { resolveImage, hasImage } from '~/lib/images';
+
+const project = await getEntry('projects', 'rose-bud-thorn');
+if (!project) throw new Error('Missing content/projects/rose-bud-thorn.json');
+const d = project.data;
+
+const hero =
+  d.hero && hasImage(d.slug, d.hero.name)
+    ? resolveImage(d.slug, d.hero.name, { alt: d.hero.alt, sizes: '100vw' })
+    : resolveImage(d.slug, d.thumbnail.name, { alt: d.thumbnail.alt, sizes: '100vw' });
+---
+
+<BaseLayout title={`${d.title} — CELLA`} activePage="projects">
+  <article class="project">
+    <header class="project-hero">
+      <h1>{d.title}</h1>
+      {d.tagline && <p class="tagline">{d.tagline}</p>}
+      <p class="meta">
+        {d.category.replace('-', ' ')} · {d.years.join('–')} · {d.role}
+      </p>
+      <img
+        src={hero.src}
+        srcset={hero.srcset}
+        sizes={hero.sizes}
+        width={hero.width}
+        height={hero.height}
+        alt={hero.alt}
+        loading="eager"
+      />
+      <p class="description">{d.description}</p>
+    </header>
+
+    {
+      d.subSections.map((section) => (
+        <section class="project-section" id={section.id}>
+          <h2>{section.title}</h2>
+          {section.description && <p class="section-desc">{section.description}</p>}
+          {section.images.length > 0 && (
+            <Gallery slug={d.slug} images={section.images} columns={2} />
+          )}
+        </section>
+      ))
+    }
+
+    {d.pressQuotes.length > 0 && <PressQuotes quotes={d.pressQuotes} />}
+  </article>
+</BaseLayout>
+
+<style lang="scss">
+  .project {
+    padding: 8rem 2rem 6rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .project-hero {
+    h1 {
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      margin: 0 0 0.5rem;
+    }
+    .tagline {
+      font-size: 1.1rem;
+      margin: 0 0 0.5rem;
+    }
+    .meta {
+      font-size: 0.85rem;
+      color: var(--color-muted, #666);
+      text-transform: capitalize;
+      margin: 0 0 2rem;
+    }
+    img {
+      width: 100%;
+      height: auto;
+      margin-bottom: 2rem;
+    }
+    .description {
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+  }
+  .project-section {
+    margin-top: 3rem;
+
+    h2 {
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-size: 1.75rem;
+      margin: 0 0 0.75rem;
+    }
+    .section-desc {
+      margin: 0 0 1.5rem;
+    }
+  }
+</style>
