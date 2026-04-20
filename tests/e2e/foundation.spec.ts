@@ -22,7 +22,7 @@ test.describe('foundation shell', () => {
 
       await expect(page.locator('.nav-logo')).toBeVisible();
 
-      const isDesktop = (await page.viewportSize())!.width >= 768;
+      const isDesktop = page.viewportSize()!.width >= 768;
       const ids = ['projects', 'graphics', 'video', 'about'] as const;
       for (const id of ids) {
         const btn = page.locator(`.nav-btn[data-nav-id="${id}"]`);

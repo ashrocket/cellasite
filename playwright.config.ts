@@ -13,7 +13,10 @@ export default defineConfig({
   projects: [
     { name: 'chromium-desktop', use: { viewport: { width: 1287, height: 749 } } },
     { name: 'chromium-mobile', use: { viewport: { width: 375, height: 812 } } },
-    { name: 'webkit-desktop', use: { browserName: 'webkit', viewport: { width: 1287, height: 749 } } },
+    {
+      name: 'webkit-desktop',
+      use: { browserName: 'webkit', viewport: { width: 1287, height: 749 } },
+    },
   ],
   webServer: {
     command: 'npm run dev',
