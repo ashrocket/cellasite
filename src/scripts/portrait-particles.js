@@ -93,7 +93,7 @@ export function initPortraitParticles(canvasEl) {
       scrub: 0.5,
       onUpdate: (self) => {
         progress.value = self.progress;
-      }
+      },
     });
 
     // Render loop

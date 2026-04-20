@@ -32,16 +32,15 @@ const navItems = [
         <span class="logo-text">CELLA</span>
       </a>
       <nav class="main-nav">
-        {navItems.map(item => (
-          <a
-            href={item.href}
-            class:list={['nav-item', { active: activePage === item.label }]}
-          >
-            <span class="nav-frame">
-              <span class="nav-label">{item.label}</span>
-            </span>
-          </a>
-        ))}
+        {
+          navItems.map((item) => (
+            <a href={item.href} class:list={['nav-item', { active: activePage === item.label }]}>
+              <span class="nav-frame">
+                <span class="nav-label">{item.label}</span>
+              </span>
+            </a>
+          ))
+        }
       </nav>
     </header>
 
