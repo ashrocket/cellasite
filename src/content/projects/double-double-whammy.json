@@ -1,0 +1,53 @@
+{
+  "title": "Double Double Whammy",
+  "slug": "double-double-whammy",
+  "category": "label-design",
+  "years": [2023, 2024, 2025],
+  "role": "Creative direction, graphic design, art direction",
+  "artists": [
+    "Babehoven",
+    "Allegra Krieger",
+    "Truth Club",
+    "This Is Lorelei",
+    "Florist",
+    "Hovvdy",
+    "Lomelda"
+  ],
+  "tagline": "Label identity & visual system",
+  "description": "Ongoing label design and visual system for Double Double Whammy, spanning cover art, merch, press sites, and motion for the roster's 2023–2025 releases.",
+  "thumbnail": { "name": "thumb", "alt": "Double Double Whammy label collage" },
+  "subSections": [
+    {
+      "id": "graphics-merch",
+      "title": "Graphics & Merch",
+      "description": "Cover art, merch, and print graphics across the roster.",
+      "images": [],
+      "artists": [
+        "Babehoven",
+        "Allegra Krieger",
+        "Truth Club",
+        "This Is Lorelei",
+        "Florist",
+        "Hovvdy",
+        "Lomelda"
+      ]
+    },
+    {
+      "id": "press-sites",
+      "title": "Press Sites",
+      "description": "Microsites and press-kit pages supporting release cycles.",
+      "images": [],
+      "artists": ["Babehoven", "Allegra Krieger", "This Is Lorelei"]
+    },
+    {
+      "id": "motion",
+      "title": "Motion",
+      "description": "Lyric videos, social assets, and campaign motion design.",
+      "images": [],
+      "artists": ["Babehoven", "This Is Lorelei", "Florist"]
+    }
+  ],
+  "pressQuotes": [],
+  "links": [{ "label": "Double Double Whammy", "url": "https://doubledoublewhammy.com" }],
+  "order": 10
+}
