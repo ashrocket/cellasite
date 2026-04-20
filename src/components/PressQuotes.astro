@@ -1,0 +1,83 @@
+---
+interface Quote {
+  quote: string;
+  source: string;
+  author?: string;
+  url?: string;
+}
+
+interface Props {
+  quotes: Quote[];
+  heading?: string;
+}
+
+const { quotes, heading = 'Press' } = Astro.props;
+---
+
+{
+  quotes.length > 0 && (
+    <section class="press-quotes">
+      <h2>{heading}</h2>
+      <ul>
+        {quotes.map((q) => (
+          <li class="press-quote">
+            <blockquote>{q.quote}</blockquote>
+            <footer>
+              — {q.author ? `${q.author}, ` : ''}
+              {q.url ? (
+                <a href={q.url} rel="noopener">
+                  {q.source}
+                </a>
+              ) : (
+                q.source
+              )}
+            </footer>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
+<style lang="scss">
+  .press-quotes {
+    padding: 3rem 0;
+
+    h2 {
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-size: 1.5rem;
+      margin: 0 0 1.5rem;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 2rem;
+    }
+  }
+
+  .press-quote {
+    blockquote {
+      margin: 0 0 0.5rem;
+      font-size: 1.15rem;
+      line-height: 1.5;
+      quotes: '\201C' '\201D';
+
+      &::before {
+        content: open-quote;
+      }
+      &::after {
+        content: close-quote;
+      }
+    }
+
+    footer {
+      font-size: 0.85rem;
+      color: var(--color-muted, #666);
+      font-style: italic;
+    }
+  }
+</style>
