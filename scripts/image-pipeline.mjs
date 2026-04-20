@@ -17,8 +17,10 @@ const MANIFEST_PATH = join(ROOT, 'src', 'lib', 'images-manifest.json');
 
 const FORCE = process.argv.includes('--force');
 
+/** @returns {Promise<string[]>} */
 async function findRawImages() {
   if (!existsSync(MEDIA_ROOT)) return [];
+  /** @type {string[]} */
   const out = [];
   const entries = await readdir(MEDIA_ROOT, { withFileTypes: true });
   for (const slugDir of entries) {
@@ -35,11 +37,18 @@ async function findRawImages() {
   return out.sort();
 }
 
+/** @param {string} path */
 async function sha256(path) {
   const buf = await readFile(path);
   return createHash('sha256').update(buf).digest('hex');
 }
 
+/**
+ * @param {string} absRawPath
+ * @param {string} slug
+ * @param {string} name
+ * @param {string} checksum
+ */
 async function processOne(absRawPath, slug, name, checksum) {
   const outDir = join(MEDIA_ROOT, slug);
   await mkdir(outDir, { recursive: true });
@@ -50,6 +59,7 @@ async function processOne(absRawPath, slug, name, checksum) {
     throw new Error(`sharp could not read dimensions for ${absRawPath}`);
   }
 
+  /** @type {Array<{ width: number, path: string }>} */
   const variants = [];
   for (const width of VARIANT_WIDTHS) {
     if (meta.width < width) continue;
@@ -85,8 +95,10 @@ async function run() {
   await mkdir(dirname(MANIFEST_PATH), { recursive: true });
 
   const raws = await findRawImages();
+  /** @type {Record<string, any>} */
   const manifest = {};
 
+  /** @type {Record<string, any>} */
   let prior = {};
   if (existsSync(MANIFEST_PATH)) {
     try {
@@ -109,7 +121,10 @@ async function run() {
     const allVariantsExist =
       priorEntry &&
       Array.isArray(priorEntry.variants) &&
-      priorEntry.variants.every((v) => existsSync(join(ROOT, 'public', v.path.replace(/^\//, ''))));
+      priorEntry.variants.every(
+        /** @param {{ path: string }} v */
+        (v) => existsSync(join(ROOT, 'public', v.path.replace(/^\//, ''))),
+      );
 
     if (!FORCE && priorEntry && priorEntry.rawChecksum === checksum && allVariantsExist) {
       manifest[key] = priorEntry;

@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest';
-// @ts-expect-error JS module, no types file
 import {
   parseRawPath,
   variantFilename,

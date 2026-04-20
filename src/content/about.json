@@ -1,0 +1,16 @@
+[
+  {
+    "slug": "about",
+    "bio": ["Placeholder — replaced in Task 11."],
+    "contact": {
+      "email": "placeholder@example.com",
+      "instagram": "placeholder",
+      "instagramUrl": "https://instagram.com/placeholder"
+    },
+    "software": {
+      "proficient": [],
+      "learning": []
+    },
+    "opennessStatement": "Placeholder — replaced in Task 11."
+  }
+]

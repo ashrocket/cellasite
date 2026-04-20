@@ -22,7 +22,9 @@ export function parseRawPath(rawPath) {
   if (!m) {
     throw new Error(`Expected "public/media/<slug>/raw/<name>.<ext>", got "${rawPath}"`);
   }
-  const [, slug, name, ext] = m;
+  const slug = /** @type {string} */ (m[1]);
+  const name = /** @type {string} */ (m[2]);
+  const ext = /** @type {string} */ (m[3]);
   const e = ext.toLowerCase();
   if (!SUPPORTED_EXTS.includes(/** @type {any} */ (e))) {
     throw new Error(`Unsupported image extension "${ext}" in ${rawPath}`);
