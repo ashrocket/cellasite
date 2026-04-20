@@ -1,0 +1,13 @@
+{
+  "title": "Tucson — Nara's Room",
+  "slug": "tucson-music-video",
+  "year": 2026,
+  "role": "Director",
+  "artist": "Nara's Room",
+  "description": "Music video for Nara's Room — \"Tucson.\" Directed by Cella Raiteri.",
+  "thumbnail": { "name": "thumb", "alt": "Tucson music video still" },
+  "embedUrl": "https://www.youtube.com/embed/placeholder-tucson",
+  "embedProvider": "youtube",
+  "links": [{ "label": "YouTube", "url": "https://www.youtube.com/watch?v=placeholder-tucson" }],
+  "order": 10
+}

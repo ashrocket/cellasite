@@ -1,0 +1,12 @@
+{
+  "title": "Babehoven — WNYU Live",
+  "slug": "babehoven-wnyu-live",
+  "year": 2025,
+  "role": "Graphics, Filming, Editing",
+  "artist": "Babehoven",
+  "description": "Live session for Babehoven at WNYU. Graphics, filming, and editing.",
+  "thumbnail": { "name": "thumb", "alt": "Babehoven WNYU Live still" },
+  "embedUrl": "https://player.vimeo.com/video/placeholder-babehoven",
+  "embedProvider": "vimeo",
+  "order": 20
+}
