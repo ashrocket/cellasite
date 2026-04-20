@@ -1,0 +1,89 @@
+/**
+ * Nav positioning.
+ *
+ * Each button is anchored at `left: 50%` and shifted by a fixed pixel
+ * margin-left offset. Values derived from the nav audit (see
+ * src/scripts/nav-math.ts). No clamp, no vw — buttons stay native size.
+ */
+
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0; /* nav children use their own height; wrapper is layout-inert */
+  z-index: 100;
+  pointer-events: none;
+
+  > * {
+    pointer-events: auto;
+  }
+}
+
+.nav-logo {
+  position: absolute;
+  left: 50%;
+  top: -192px;
+  margin-left: -573.5px;
+  width: 274px;
+  height: 285px;
+  display: block;
+
+  img {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+}
+
+.nav-btn {
+  position: absolute;
+  left: 50%;
+  display: block;
+  text-decoration: none;
+
+  img {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  &[data-nav-id='projects'] {
+    top: 4px;
+    margin-left: 6px;
+    width: 103px;
+    height: 69px;
+  }
+  &[data-nav-id='graphics'] {
+    top: 18px;
+    margin-left: 101px;
+    width: 103px;
+    height: 58px;
+  }
+  &[data-nav-id='video'] {
+    top: 10px;
+    margin-left: 195px;
+    width: 97px;
+    height: 73px;
+  }
+  &[data-nav-id='about'] {
+    top: 11px;
+    margin-left: 294px;
+    width: 111px;
+    height: 73px;
+  }
+}
+
+/* Hide inline desktop nav on mobile; logo stays visible. */
+@media (max-width: 767px) {
+  .nav-btn {
+    display: none;
+  }
+
+  .nav-logo {
+    width: 164px;
+    height: 171px;
+    top: -115px;
+    margin-left: -344.1px;
+  }
+}

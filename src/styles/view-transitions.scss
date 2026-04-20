@@ -1,0 +1,42 @@
+/**
+ * View Transitions — native cross-document transitions.
+ *
+ * Chrome/Edge 126+ and Safari 18.2+ morph persistent elements between pages.
+ * Firefox and older Safari fall back to default navigation (no morph),
+ * with no JS polyfill overhead.
+ */
+
+@view-transition {
+  navigation: auto;
+}
+
+.nav-logo {
+  view-transition-name: logo;
+}
+
+.nav-btn {
+  &[data-nav-id='projects'] {
+    view-transition-name: nav-projects;
+  }
+  &[data-nav-id='graphics'] {
+    view-transition-name: nav-graphics;
+  }
+  &[data-nav-id='video'] {
+    view-transition-name: nav-video;
+  }
+  &[data-nav-id='about'] {
+    view-transition-name: nav-about;
+  }
+}
+
+/* Bound the capture region to reduce browser-specific surprises with the
+ * logo's off-screen bleed. */
+.site-nav {
+  contain: paint;
+}
+
+/* Fallback styling for browsers without View Transitions support. No JS
+ * polyfill — pages just navigate normally. */
+@supports not (view-transition-name: logo) {
+  /* Intentionally empty. Native page load is acceptable degradation. */
+}
