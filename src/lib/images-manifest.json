@@ -1,1 +1,382 @@
-{}
+{
+  "about/portrait": {
+    "slug": "about",
+    "name": "portrait",
+    "rawPath": "public/media/about/raw/portrait.png",
+    "rawChecksum": "721c2d61cfa9e83ea5a4f864e7c0e84a009433fe6eb1032a0719fcc19632d7ce",
+    "sourceWidth": 3000,
+    "sourceHeight": 3000,
+    "variants": [
+      {
+        "width": 400,
+        "path": "/media/about/portrait-400w.webp"
+      },
+      {
+        "width": 800,
+        "path": "/media/about/portrait-800w.webp"
+      },
+      {
+        "width": 1600,
+        "path": "/media/about/portrait-1600w.webp"
+      }
+    ]
+  },
+  "allegra-krieger-campaign/thumb": {
+    "slug": "allegra-krieger-campaign",
+    "name": "thumb",
+    "rawPath": "public/media/allegra-krieger-campaign/raw/thumb.png",
+    "rawChecksum": "63ef318d96b5d0d0ceba6e04a4e622b1158335cdc67c49e27839132c6f655058",
+    "sourceWidth": 1,
+    "sourceHeight": 1,
+    "variants": [
+      {
+        "width": 1,
+        "path": "/media/allegra-krieger-campaign/thumb-1w.webp"
+      }
+    ]
+  },
+  "april-play-typography/thumb": {
+    "slug": "april-play-typography",
+    "name": "thumb",
+    "rawPath": "public/media/april-play-typography/raw/thumb.png",
+    "rawChecksum": "63ef318d96b5d0d0ceba6e04a4e622b1158335cdc67c49e27839132c6f655058",
+    "sourceWidth": 1,
+    "sourceHeight": 1,
+    "variants": [
+      {
+        "width": 1,
+        "path": "/media/april-play-typography/thumb-1w.webp"
+      }
+    ]
+  },
+  "babehoven-wnyu-live/thumb": {
+    "slug": "babehoven-wnyu-live",
+    "name": "thumb",
+    "rawPath": "public/media/babehoven-wnyu-live/raw/thumb.png",
+    "rawChecksum": "63ef318d96b5d0d0ceba6e04a4e622b1158335cdc67c49e27839132c6f655058",
+    "sourceWidth": 1,
+    "sourceHeight": 1,
+    "variants": [
+      {
+        "width": 1,
+        "path": "/media/babehoven-wnyu-live/thumb-1w.webp"
+      }
+    ]
+  },
+  "been-stellar-flyer/thumb": {
+    "slug": "been-stellar-flyer",
+    "name": "thumb",
+    "rawPath": "public/media/been-stellar-flyer/raw/thumb.png",
+    "rawChecksum": "63ef318d96b5d0d0ceba6e04a4e622b1158335cdc67c49e27839132c6f655058",
+    "sourceWidth": 1,
+    "sourceHeight": 1,
+    "variants": [
+      {
+        "width": 1,
+        "path": "/media/been-stellar-flyer/thumb-1w.webp"
+      }
+    ]
+  },
+  "carter-ward-l-train/thumb": {
+    "slug": "carter-ward-l-train",
+    "name": "thumb",
+    "rawPath": "public/media/carter-ward-l-train/raw/thumb.png",
+    "rawChecksum": "63ef318d96b5d0d0ceba6e04a4e622b1158335cdc67c49e27839132c6f655058",
+    "sourceWidth": 1,
+    "sourceHeight": 1,
+    "variants": [
+      {
+        "width": 1,
+        "path": "/media/carter-ward-l-train/thumb-1w.webp"
+      }
+    ]
+  },
+  "cella-typography/thumb": {
+    "slug": "cella-typography",
+    "name": "thumb",
+    "rawPath": "public/media/cella-typography/raw/thumb.png",
+    "rawChecksum": "63ef318d96b5d0d0ceba6e04a4e622b1158335cdc67c49e27839132c6f655058",
+    "sourceWidth": 1,
+    "sourceHeight": 1,
+    "variants": [
+      {
+        "width": 1,
+        "path": "/media/cella-typography/thumb-1w.webp"
+      }
+    ]
+  },
+  "double-double-whammy/thumb": {
+    "slug": "double-double-whammy",
+    "name": "thumb",
+    "rawPath": "public/media/double-double-whammy/raw/thumb.png",
+    "rawChecksum": "63ef318d96b5d0d0ceba6e04a4e622b1158335cdc67c49e27839132c6f655058",
+    "sourceWidth": 1,
+    "sourceHeight": 1,
+    "variants": [
+      {
+        "width": 1,
+        "path": "/media/double-double-whammy/thumb-1w.webp"
+      }
+    ]
+  },
+  "florist-cream-tee/thumb": {
+    "slug": "florist-cream-tee",
+    "name": "thumb",
+    "rawPath": "public/media/florist-cream-tee/raw/thumb.png",
+    "rawChecksum": "63ef318d96b5d0d0ceba6e04a4e622b1158335cdc67c49e27839132c6f655058",
+    "sourceWidth": 1,
+    "sourceHeight": 1,
+    "variants": [
+      {
+        "width": 1,
+        "path": "/media/florist-cream-tee/thumb-1w.webp"
+      }
+    ]
+  },
+  "florist-red-tee/thumb": {
+    "slug": "florist-red-tee",
+    "name": "thumb",
+    "rawPath": "public/media/florist-red-tee/raw/thumb.png",
+    "rawChecksum": "63ef318d96b5d0d0ceba6e04a4e622b1158335cdc67c49e27839132c6f655058",
+    "sourceWidth": 1,
+    "sourceHeight": 1,
+    "variants": [
+      {
+        "width": 1,
+        "path": "/media/florist-red-tee/thumb-1w.webp"
+      }
+    ]
+  },
+  "halliday-carpender/thumb": {
+    "slug": "halliday-carpender",
+    "name": "thumb",
+    "rawPath": "public/media/halliday-carpender/raw/thumb.png",
+    "rawChecksum": "63ef318d96b5d0d0ceba6e04a4e622b1158335cdc67c49e27839132c6f655058",
+    "sourceWidth": 1,
+    "sourceHeight": 1,
+    "variants": [
+      {
+        "width": 1,
+        "path": "/media/halliday-carpender/thumb-1w.webp"
+      }
+    ]
+  },
+  "horses-cant-outrun-me/thumb": {
+    "slug": "horses-cant-outrun-me",
+    "name": "thumb",
+    "rawPath": "public/media/horses-cant-outrun-me/raw/thumb.png",
+    "rawChecksum": "63ef318d96b5d0d0ceba6e04a4e622b1158335cdc67c49e27839132c6f655058",
+    "sourceWidth": 1,
+    "sourceHeight": 1,
+    "variants": [
+      {
+        "width": 1,
+        "path": "/media/horses-cant-outrun-me/thumb-1w.webp"
+      }
+    ]
+  },
+  "lorelei-australia/thumb": {
+    "slug": "lorelei-australia",
+    "name": "thumb",
+    "rawPath": "public/media/lorelei-australia/raw/thumb.png",
+    "rawChecksum": "63ef318d96b5d0d0ceba6e04a4e622b1158335cdc67c49e27839132c6f655058",
+    "sourceWidth": 1,
+    "sourceHeight": 1,
+    "variants": [
+      {
+        "width": 1,
+        "path": "/media/lorelei-australia/thumb-1w.webp"
+      }
+    ]
+  },
+  "lorelei-knockdown/thumb": {
+    "slug": "lorelei-knockdown",
+    "name": "thumb",
+    "rawPath": "public/media/lorelei-knockdown/raw/thumb.png",
+    "rawChecksum": "63ef318d96b5d0d0ceba6e04a4e622b1158335cdc67c49e27839132c6f655058",
+    "sourceWidth": 1,
+    "sourceHeight": 1,
+    "variants": [
+      {
+        "width": 1,
+        "path": "/media/lorelei-knockdown/thumb-1w.webp"
+      }
+    ]
+  },
+  "lorelei-uk-europe/thumb": {
+    "slug": "lorelei-uk-europe",
+    "name": "thumb",
+    "rawPath": "public/media/lorelei-uk-europe/raw/thumb.png",
+    "rawChecksum": "63ef318d96b5d0d0ceba6e04a4e622b1158335cdc67c49e27839132c6f655058",
+    "sourceWidth": 1,
+    "sourceHeight": 1,
+    "variants": [
+      {
+        "width": 1,
+        "path": "/media/lorelei-uk-europe/thumb-1w.webp"
+      }
+    ]
+  },
+  "mta-waveform/thumb": {
+    "slug": "mta-waveform",
+    "name": "thumb",
+    "rawPath": "public/media/mta-waveform/raw/thumb.png",
+    "rawChecksum": "63ef318d96b5d0d0ceba6e04a4e622b1158335cdc67c49e27839132c6f655058",
+    "sourceWidth": 1,
+    "sourceHeight": 1,
+    "variants": [
+      {
+        "width": 1,
+        "path": "/media/mta-waveform/thumb-1w.webp"
+      }
+    ]
+  },
+  "rose-bud-thorn/thumb": {
+    "slug": "rose-bud-thorn",
+    "name": "thumb",
+    "rawPath": "public/media/rose-bud-thorn/raw/thumb.png",
+    "rawChecksum": "63ef318d96b5d0d0ceba6e04a4e622b1158335cdc67c49e27839132c6f655058",
+    "sourceWidth": 1,
+    "sourceHeight": 1,
+    "variants": [
+      {
+        "width": 1,
+        "path": "/media/rose-bud-thorn/thumb-1w.webp"
+      }
+    ]
+  },
+  "susannah-joffe-poster/thumb": {
+    "slug": "susannah-joffe-poster",
+    "name": "thumb",
+    "rawPath": "public/media/susannah-joffe-poster/raw/thumb.png",
+    "rawChecksum": "63ef318d96b5d0d0ceba6e04a4e622b1158335cdc67c49e27839132c6f655058",
+    "sourceWidth": 1,
+    "sourceHeight": 1,
+    "variants": [
+      {
+        "width": 1,
+        "path": "/media/susannah-joffe-poster/thumb-1w.webp"
+      }
+    ]
+  },
+  "truth-club-running/thumb": {
+    "slug": "truth-club-running",
+    "name": "thumb",
+    "rawPath": "public/media/truth-club-running/raw/thumb.png",
+    "rawChecksum": "63ef318d96b5d0d0ceba6e04a4e622b1158335cdc67c49e27839132c6f655058",
+    "sourceWidth": 1,
+    "sourceHeight": 1,
+    "variants": [
+      {
+        "width": 1,
+        "path": "/media/truth-club-running/thumb-1w.webp"
+      }
+    ]
+  },
+  "tucson-music-video/back": {
+    "slug": "tucson-music-video",
+    "name": "back",
+    "rawPath": "public/media/tucson-music-video/raw/back.png",
+    "rawChecksum": "79919ce678c5148095e0aba2f7f7b6e3382980a0661b1289556baaa2269a3dc8",
+    "sourceWidth": 2000,
+    "sourceHeight": 2000,
+    "variants": [
+      {
+        "width": 400,
+        "path": "/media/tucson-music-video/back-400w.webp"
+      },
+      {
+        "width": 800,
+        "path": "/media/tucson-music-video/back-800w.webp"
+      },
+      {
+        "width": 1600,
+        "path": "/media/tucson-music-video/back-1600w.webp"
+      }
+    ]
+  },
+  "tucson-music-video/bc": {
+    "slug": "tucson-music-video",
+    "name": "bc",
+    "rawPath": "public/media/tucson-music-video/raw/bc.jpg",
+    "rawChecksum": "307e4d3a8eb6cc02097ef6028509cd162cb5660242663932f62246cbec5d55b7",
+    "sourceWidth": 1000,
+    "sourceHeight": 1000,
+    "variants": [
+      {
+        "width": 400,
+        "path": "/media/tucson-music-video/bc-400w.webp"
+      },
+      {
+        "width": 800,
+        "path": "/media/tucson-music-video/bc-800w.webp"
+      }
+    ]
+  },
+  "tucson-music-video/label": {
+    "slug": "tucson-music-video",
+    "name": "label",
+    "rawPath": "public/media/tucson-music-video/raw/label.png",
+    "rawChecksum": "86ad63dccd3005b2feecaea15546f2c4b65f9b0ba793f417d92e972315fcae22",
+    "sourceWidth": 2000,
+    "sourceHeight": 2000,
+    "variants": [
+      {
+        "width": 400,
+        "path": "/media/tucson-music-video/label-400w.webp"
+      },
+      {
+        "width": 800,
+        "path": "/media/tucson-music-video/label-800w.webp"
+      },
+      {
+        "width": 1600,
+        "path": "/media/tucson-music-video/label-1600w.webp"
+      }
+    ]
+  },
+  "tucson-music-video/still-1": {
+    "slug": "tucson-music-video",
+    "name": "still-1",
+    "rawPath": "public/media/tucson-music-video/raw/still-1.jpg",
+    "rawChecksum": "d71424aee109fbe59feed00daf2cd9c4833e24fa477c55b81ae130a6346f8987",
+    "sourceWidth": 3938,
+    "sourceHeight": 4922,
+    "variants": [
+      {
+        "width": 400,
+        "path": "/media/tucson-music-video/still-1-400w.webp"
+      },
+      {
+        "width": 800,
+        "path": "/media/tucson-music-video/still-1-800w.webp"
+      },
+      {
+        "width": 1600,
+        "path": "/media/tucson-music-video/still-1-1600w.webp"
+      }
+    ]
+  },
+  "tucson-music-video/thumb": {
+    "slug": "tucson-music-video",
+    "name": "thumb",
+    "rawPath": "public/media/tucson-music-video/raw/thumb.png",
+    "rawChecksum": "dab640e0ef00daeb2d6808f28d95fc96e82321176c77da987baa9823867f1946",
+    "sourceWidth": 2000,
+    "sourceHeight": 2000,
+    "variants": [
+      {
+        "width": 400,
+        "path": "/media/tucson-music-video/thumb-400w.webp"
+      },
+      {
+        "width": 800,
+        "path": "/media/tucson-music-video/thumb-800w.webp"
+      },
+      {
+        "width": 1600,
+        "path": "/media/tucson-music-video/thumb-1600w.webp"
+      }
+    ]
+  }
+}
