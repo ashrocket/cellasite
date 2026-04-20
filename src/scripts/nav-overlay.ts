@@ -87,6 +87,12 @@ export function initNavOverlay(): void {
     });
   };
 
+  if (typeof DeviceMotionEvent === 'undefined') {
+    // Browser has no DeviceMotionEvent (some desktop WebKit). Tap-logo
+    // still works; shake is silently unavailable.
+    return;
+  }
+
   type DeviceMotionEventStatic = typeof DeviceMotionEvent & {
     requestPermission?: () => Promise<'granted' | 'denied'>;
   };

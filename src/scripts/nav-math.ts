@@ -1,8 +1,12 @@
 /**
  * Nav button position math.
  *
- * The nav is rendered using Readymag's own approach: each button is anchored
- * to the viewport center (`left: 50%`) with a fixed pixel `margin-left` offset.
+ * Each button is rendered with `position: absolute; left: 50%` inside the
+ * fixed nav shell, then shifted by `margin-left` to match the audit
+ * coordinates. Because `left: 50%` anchors the element's LEFT EDGE (not
+ * center), `margin-left` equals how far right of viewport-center the button's
+ * left edge sits.
+ *
  * Audit coords were captured at a 1287×749 viewport.
  */
 
@@ -20,13 +24,16 @@ export interface NavButton {
   marginLeft: number;
 }
 
-export function computeMarginLeft(auditX: number, width: number): number {
-  return auditX + width / 2 - DESIGN_VIEWPORT_CENTER;
+/**
+ * Left-edge offset relative to viewport center.
+ * At any viewport, the rendered left edge = viewportWidth/2 + marginLeft.
+ */
+export function computeMarginLeft(auditX: number): number {
+  return auditX - DESIGN_VIEWPORT_CENTER;
 }
 
 export function computeButtonRightEdge(button: NavButton, viewportWidth: number): number {
-  const center = viewportWidth / 2 + button.marginLeft;
-  return center + button.width / 2;
+  return viewportWidth / 2 + button.marginLeft + button.width;
 }
 
 export const NAV_BUTTONS: readonly NavButton[] = [
@@ -38,7 +45,7 @@ export const NAV_BUTTONS: readonly NavButton[] = [
     auditY: 4,
     width: 103,
     height: 69,
-    marginLeft: computeMarginLeft(598, 103),
+    marginLeft: computeMarginLeft(598),
   },
   {
     id: 'graphics',
@@ -48,7 +55,7 @@ export const NAV_BUTTONS: readonly NavButton[] = [
     auditY: 18,
     width: 103,
     height: 58,
-    marginLeft: computeMarginLeft(693, 103),
+    marginLeft: computeMarginLeft(693),
   },
   {
     id: 'video',
@@ -58,7 +65,7 @@ export const NAV_BUTTONS: readonly NavButton[] = [
     auditY: 10,
     width: 97,
     height: 73,
-    marginLeft: computeMarginLeft(790, 97),
+    marginLeft: computeMarginLeft(790),
   },
   {
     id: 'about',
@@ -68,7 +75,7 @@ export const NAV_BUTTONS: readonly NavButton[] = [
     auditY: 11,
     width: 111,
     height: 73,
-    marginLeft: computeMarginLeft(882, 111),
+    marginLeft: computeMarginLeft(882),
   },
 ] as const;
 
@@ -77,5 +84,5 @@ export const LOGO = {
   auditY: -192,
   width: 274,
   height: 285,
-  marginLeft: computeMarginLeft(-67, 274),
+  marginLeft: computeMarginLeft(-67),
 } as const;

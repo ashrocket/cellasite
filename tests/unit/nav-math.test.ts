@@ -8,24 +8,24 @@ import {
 
 describe('nav-math', () => {
   describe('computeMarginLeft', () => {
-    it('computes +6 for PROJECTS (audit x=598, w=103)', () => {
-      expect(computeMarginLeft(598, 103)).toBe(6);
+    it('computes -45.5 for PROJECTS (audit x=598)', () => {
+      expect(computeMarginLeft(598)).toBe(-45.5);
     });
 
-    it('computes +101 for GRAPHICS (audit x=693, w=103)', () => {
-      expect(computeMarginLeft(693, 103)).toBe(101);
+    it('computes +49.5 for GRAPHICS (audit x=693)', () => {
+      expect(computeMarginLeft(693)).toBe(49.5);
     });
 
-    it('computes +195 for VIDEO (audit x=790, w=97)', () => {
-      expect(computeMarginLeft(790, 97)).toBe(195);
+    it('computes +146.5 for VIDEO (audit x=790)', () => {
+      expect(computeMarginLeft(790)).toBe(146.5);
     });
 
-    it('computes +294 for ABOUT (audit x=882, w=111)', () => {
-      expect(computeMarginLeft(882, 111)).toBe(294);
+    it('computes +238.5 for ABOUT (audit x=882)', () => {
+      expect(computeMarginLeft(882)).toBe(238.5);
     });
 
-    it('computes -573.5 for logo bleed (audit x=-67, w=274)', () => {
-      expect(computeMarginLeft(-67, 274)).toBe(-573.5);
+    it('computes -710.5 for logo bleed (audit x=-67)', () => {
+      expect(computeMarginLeft(-67)).toBe(-710.5);
     });
   });
 

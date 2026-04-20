@@ -46,3 +46,20 @@ img {
   background: var(--color-text);
   color: var(--color-bg);
 }
+
+/**
+ * Respect the user's motion preference.
+ * Layer 2 (scroll-driven) and Layer 3 (interaction responses) animations
+ * are disabled. Layer 1 (View Transitions) native fades remain — the browser
+ * handles prefers-reduced-motion on View Transitions automatically.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+    transition-duration: 0s !important;
+    scroll-behavior: auto !important;
+  }
+}

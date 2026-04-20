@@ -29,12 +29,6 @@
   }
 }
 
-/* Bound the capture region to reduce browser-specific surprises with the
- * logo's off-screen bleed. */
-.site-nav {
-  contain: paint;
-}
-
 /* Fallback styling for browsers without View Transitions support. No JS
  * polyfill — pages just navigate normally. */
 @supports not (view-transition-name: logo) {
