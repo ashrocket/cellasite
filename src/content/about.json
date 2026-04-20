@@ -1,16 +1,33 @@
 [
   {
     "slug": "about",
-    "bio": ["Placeholder — replaced in Task 11."],
+    "bio": [
+      "Designer and creative director based in NYC, working at the intersection of music, visual culture, and storytelling.",
+      "Background in journalism and public policy at NYU. Co-wrote and produced a song with 90M+ streams. Directed music videos, styled press shoots, built brands for independent artists and labels."
+    ],
     "contact": {
-      "email": "placeholder@example.com",
-      "instagram": "placeholder",
-      "instagramUrl": "https://instagram.com/placeholder"
+      "email": "cellaraiteri@gmail.com",
+      "instagram": "thecelladome",
+      "instagramUrl": "https://instagram.com/thecelladome"
     },
     "software": {
-      "proficient": [],
-      "learning": []
+      "proficient": [
+        "Photoshop",
+        "Illustrator",
+        "After Effects",
+        "Premiere",
+        "DaVinci Resolve",
+        "Figma",
+        "Readymag",
+        "Cargo",
+        "Squarespace"
+      ],
+      "learning": ["Blender", "Cinema 4D"]
     },
-    "opennessStatement": "Placeholder — replaced in Task 11."
+    "opennessStatement": "Currently open to full-time and freelance opportunities in creative direction, brand, and editorial design.",
+    "portrait": {
+      "name": "portrait",
+      "alt": "Portrait of Cella Raiteri"
+    }
   }
 ]
