@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "prebuild": "node scripts/image-pipeline.mjs && node scripts/verify-content.mjs && node scripts/verify-images.mjs",
+    "prebuild": "node scripts/verify-content.mjs && node scripts/verify-images.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
